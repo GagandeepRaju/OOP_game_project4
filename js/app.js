@@ -1,6 +1,8 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * app.js */
+
+/*Default phrases for the game*/
 const phrases = [
   "how are you",
   "you win",
@@ -17,12 +19,14 @@ const screenKey = document.querySelectorAll("button");
 
 const game = new Game(phrases);
 const phrase = new Phrase();
-//start Button Click event
+//start/play again Button Click event and calling the start Game method from the Game class
 startBtn.addEventListener("click", (event) => {
   //display none
   game.startGame();
 });
 
+/*Checking for any key is pressed on the screen and loops thourgh all the keys and execute the handle interaction
+  method on the game class*/
 for (let i = 1; i < screenKey.length; i++) {
   screenKey[i].addEventListener("click", (event) => {
     let word = event.target.innerText;

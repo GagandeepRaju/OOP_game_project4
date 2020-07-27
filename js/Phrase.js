@@ -5,11 +5,13 @@ class Phrase {
   constructor() {
     this.phrase = null;
   }
-
+  /*setter for phrase class*/
   set activePhrase(phr) {
     this.phrase = phr;
   }
-
+  /*addphrasetoDisplay method is called from the startGame method when the active phrase is set in the phrase class
+    creating new elements for the screen and loop through the string and creating element accordingly setting attributes 
+    accordigly*/
   addPhraseToDisplay() {
     let phrList = phraseSection;
     const unList = document.createElement("ul");
@@ -32,8 +34,9 @@ class Phrase {
     }
   }
 
+  /*checkLetter method performs, scanning the letter through the phrase and return result if the letter is in the phrase 
+    or not*/
   checkLetter(letter) {
-    //check letter
     let match = false;
     let index = 0;
     let count = 0;
@@ -55,7 +58,8 @@ class Phrase {
     }
     return match;
   }
-
+  /*showMatchedLetter method is called from the game class if the letter is present in the phrase css classes will be appied to
+    turn the visibility*/
   showMatchedLetter(index) {
     let wordIndex = phraseSection.children[0].children[index];
     for (let i = 0; i < wordIndex.classList.length; i++) {
