@@ -34,3 +34,10 @@ for (let i = 1; i < screenKey.length; i++) {
     game.handleInteraction(word, event);
   });
 }
+
+/*any key pressed if the page is active in the document key has to be between a to z only*/
+document.body.addEventListener("keydown", (e) => {
+  if (e.keyCode >= 65 && e.keyCode <= 90) {
+    game.handleInteraction(e.key);
+  }
+});

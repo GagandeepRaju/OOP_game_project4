@@ -92,14 +92,24 @@ class Game {
   }
   /*hanleInteraction will is performing the checkLetter method on phrase and any wrong key detection will call removeLife 
     method to remove 1 life or any correct key will be enable on the phrase by calling showMatchedLetter with index on the 
-    screen and checkForWin will be called*/
+    screen and checkForWin will be called
+    if the keypress event happen then handling the key accordigly is also implemented*/
   handleInteraction(word) {
     const data = phrase.checkLetter(word);
     const match = data[0];
     const index = data[1];
-
+    let key = "";
     if (!match) {
-      let key = event.target;
+      if (event.type == "keydown") {
+        key = document.querySelectorAll(`.key`);
+        for (let i = 0; i < key.length; i++) {
+          if (key[i].innerText === event.key) {
+            key = key[i];
+          }
+        }
+      } else {
+        key = event.target;
+      }
       key.classList.add("wrong");
       key.disabled = true;
       game.removeLife();
