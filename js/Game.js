@@ -8,6 +8,7 @@ class Game {
     this.activePhrase = null;
     this.phrases = phrases;
     this.result = null;
+    this.started = false;
   }
 
   /*startGame() method perform the change over from start screen to Gameboard screen 
@@ -18,6 +19,7 @@ class Game {
     this.activePhrase = this.RandomPhrase;
     phrase.activePhrase = this.activePhrase;
     phrase.addPhraseToDisplay();
+    this.started = true;
   }
 
   /*setter for the result parameter to update the result either win or lose based on 
@@ -88,6 +90,7 @@ class Game {
     this.missed += 1;
     if (this.missed >= 5) {
       this.gameOver();
+      this.started = false;
     }
   }
   /*hanleInteraction will is performing the checkLetter method on phrase and any wrong key detection will call removeLife 
@@ -95,27 +98,29 @@ class Game {
     screen and checkForWin will be called
     if the keypress event happen then handling the key accordigly is also implemented*/
   handleInteraction(word) {
-    const data = phrase.checkLetter(word);
-    const match = data[0];
-    const index = data[1];
+    const match = phrase.checkLetter(word);
     let key = "";
     if (!match) {
       if (event.type == "keydown") {
         key = document.querySelectorAll(`.key`);
         for (let i = 0; i < key.length; i++) {
-          if (key[i].innerText === event.key) {
+          if (key[i].innerText === event.key && !key[i].disabled) {
             key = key[i];
+            key.classList.add("wrong");
+            key.disabled = true;
+            game.removeLife();
+            game.updateResult = "Sorry, try again next time!";
           }
         }
       } else {
         key = event.target;
+        key.classList.add("wrong");
+        key.disabled = true;
+        game.removeLife();
+        game.updateResult = "Sorry, try again next time!";
       }
-      key.classList.add("wrong");
-      key.disabled = true;
-      game.removeLife();
-      game.updateResult = "Sorry, try again next time!";
     } else {
-      phrase.showMatchedLetter(index);
+      phrase.showMatchedLetter(word);
       this.checkForWin();
     }
   }

@@ -38,35 +38,26 @@ class Phrase {
     or not*/
   checkLetter(letter) {
     let match = false;
-    let index = 0;
-    let count = 0;
-    let data = [];
     for (let i = 0; i < this.phrase.length; i++) {
       if (letter === this.phrase[i]) {
-        index = this.phrase.indexOf(letter, i);
         match = true;
-        data.push(match);
-        data.push(index);
-        let chkClass = document.querySelectorAll(`li.${letter}`)[count];
-        if (chkClass.classList[3] === undefined) {
-          return data;
-        } else if (chkClass.classList[3] === "chosen") {
-          count += 1;
-          data = [];
-        }
+        return match;
       }
     }
     return match;
   }
   /*showMatchedLetter method is called from the game class if the letter is present in the phrase css classes will be appied to
     turn the visibility*/
-  showMatchedLetter(index) {
-    let wordIndex = phraseSection.children[0].children[index];
-    for (let i = 0; i < wordIndex.classList.length; i++) {
-      if (wordIndex.classList[i] === "chosen") {
-        break;
-      } else {
-        wordIndex.classList.add("chosen");
+  showMatchedLetter(letter) {
+    let chkClass = document.querySelectorAll(`li.${letter}`);
+
+    for (let i = 0; i < chkClass.length; i++) {
+      for (let j = 0; j < chkClass[i].classList.length; j++) {
+        if (chkClass[i].classList[j] === "chosen") {
+          break;
+        } else {
+          chkClass[i].classList.add("chosen");
+        }
       }
     }
   }
