@@ -40,10 +40,11 @@ class Game {
     this.missed = 0;
     let UlList = document.getElementById("phrase").children[0];
     document.getElementById("phrase").removeChild(UlList);
-    const keyBoard = document.querySelectorAll(".wrong");
+    const keyBoard = document.querySelectorAll(".key");
     const lifes = document.querySelectorAll(".tries");
     for (let i = 0; i < keyBoard.length; i++) {
       keyBoard[i].classList.remove("wrong");
+      keyBoard[i].classList.remove("chosen");
       keyBoard[i].disabled = false;
     }
 
@@ -120,6 +121,13 @@ class Game {
         game.updateResult = "Sorry, try again next time!";
       }
     } else {
+      let guessKey = document.querySelectorAll(".key");
+      for (let k = 0; k < guessKey.length; k++) {
+        //
+        if (word === guessKey[k].innerText) {
+          guessKey[k].classList.add("chosen");
+        }
+      }
       phrase.showMatchedLetter(word);
       this.checkForWin();
     }
